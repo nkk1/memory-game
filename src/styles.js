@@ -21,7 +21,36 @@ const styles = StyleSheet.create({
     },
     boxText: {
         color: '#fff',
+    },
+    centerContent:{
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    centerText: {
+        textAlign: 'center',
+    },
+    fontH1: {
+        fontSize: 45,
+    },
+    fontH2: {
+        fontSize: 35,
+    },
+    fontH3: {
+        fontSize: 25,
+    },
+    fontH4: {
+        fontSize: 15,
+    },
+    flexOne: {flex: 1},
+    flexNine: {flex: 9},
+    marginFive: {
+        margin: 5,
+    },
+    simpleBorder:{
+        borderWidth: 1,
+        borderColor: 'grey',
     }
 });
+
 
 export {styles}

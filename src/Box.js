@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Text, TouchableOpacity} from "react-native";
+import {Text, TouchableOpacity} from "react-native";
 import {styles} from "./styles";
 
 export default function Box(props) {
@@ -13,6 +13,9 @@ export default function Box(props) {
                 })
             ];
         });
+
+        props.updateScore(props.index);
+
     }
     return (
         <TouchableOpacity
