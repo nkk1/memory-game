@@ -1,8 +1,10 @@
 import React from 'react';
-import Game from "./src";
+import { Icon } from 'react-native-elements'
+
+import FlippingCards from "./src";
 
 export default function App() {
   return(
-    <Game />
+    <FlippingCards />
   )
 }
