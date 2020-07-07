@@ -22,7 +22,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.memory.game",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.memory.game",
+      "versionCode": 1
     }
   }
 }

@@ -4,6 +4,7 @@ import {
     View,
     FlatList,
     SafeAreaView,
+    ImageBackground,
     Button,
     Dimensions,
     Image,
@@ -25,12 +26,12 @@ export default function FlippingCards() {
 
     const [images, setImages] = useState(constant.CreatePuzzles(columns*rows));
     const [puzzleStarted, setPuzzleStarted] = useState(false);
-    const [puzzle, setPuzzle] = useState({});
-    const [visitedPuzzles, setVisitedPuzzles] = useState([]);
+    const [puzzle, setPuzzle] = useState({});    
     const [score, setScore] = useState(0);
     const [counter, setCounter] = useState(0);
     const [randomPuzzles, setRandomPuzzles] = useState(constant.GetRandomItemsFromArray(images, images.length));
     const [gameOver, setGameOver] = useState(false);
+    const [bgImage, setBGImage] = useState({uri: constant.RandomElementFromArray(constant.bgImages)});
 
     const [buttonDisabled, setButtonDisabled]  = useState(true);
 
@@ -98,8 +99,13 @@ export default function FlippingCards() {
         return true
     }
 
+    useEffect(()=>{
+       setBGImage({uri: constant.RandomElementFromArray(constant.bgImages)});
+    },[JSON.stringify(images.map(img => img.id))]);
+
     return (
         <SafeAreaView style={{flex:1, marginTop: 50, backgroundColor: "#e91e63"}}>
+            <ImageBackground source={bgImage} style={{flex:1}}>
 
             <View style={{borderColor: 'lightgrey', borderRadius: 5, borderWidth: 1, margin: 5}}>
                 <Text style={{textAlign: "center", fontSize: 35, fontWeight: "200", padding: 5,color: "#fff"}}>Score: {score}</Text>
@@ -121,17 +127,17 @@ export default function FlippingCards() {
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <Image
                     resizeMode="contain"
-                    style={{width: '50%', height: '90%', alignSelf: "center"}}
+                    style={{width: '50%', height: '300%', alignSelf: "center", marginBottom: 150}}
                     source={puzzle.name}
                 />
             </View>
             }
 
-            <Button
+            {!puzzleStarted && <Button
                 title="GO"
                 disabled={buttonDisabled}
                 onPress={() => puzzleStarted ? "" : startPuzzle()}
-            />
+            />}
 
             <Modal isVisible={gameOver} onBackdropPress={() => onBackDrop()}>
                 <View style={{ flex: 0.6, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', marginTop: Constants.statusBarHeight }}>
@@ -144,9 +150,11 @@ export default function FlippingCards() {
                         />
                         </>
                     }
-                    <Text style={{fontSize: 30}}>SCORE: {score}</Text>
+                    <Text style={{fontSize: 30}}>SCORE: {score}</Text>                    
                 </View>
             </Modal>
+
+            </ImageBackground>
 
         </SafeAreaView>
     )
