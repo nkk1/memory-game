@@ -2,17 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {
     Text,
     View,
-    FlatList,
-    SafeAreaView,
-    ImageBackground,
-    Button,
+    FlatList,    
+    ImageBackground,    
     Dimensions,
     Image,
 } from 'react-native';
+import {Button} from 'react-native-elements';
 
+import HeadRoom from './headroom'
 import PuzzleCard from './PuzzleCard';
 import Modal from 'react-native-modal';
-import LevelSlider from './slider'
 
 import * as constant from './constants';
 import Constants from "expo-constants";
@@ -21,8 +20,8 @@ const imageInModal = Dimensions.get('window').width/ 1.5 ;
 
 export default function FlippingCards() {
     
-    const [columns, setColumns] = useState(2);
-    const [rows, setRows] = useState(2);
+    const [columns, setColumns] = useState(constant.START_LEVEL);
+    const [rows, setRows] = useState(constant.START_LEVEL);
 
     const [images, setImages] = useState(constant.CreatePuzzles(columns*rows));
     const [puzzleStarted, setPuzzleStarted] = useState(false);
@@ -104,14 +103,15 @@ export default function FlippingCards() {
     },[JSON.stringify(images.map(img => img.id))]);
 
     return (
-        <SafeAreaView style={{flex:1, marginTop: 50, backgroundColor: "#e91e63"}}>
+        
             <ImageBackground source={bgImage} style={{flex:1}}>
 
-            <View style={{borderColor: 'lightgrey', borderRadius: 5, borderWidth: 1, margin: 5}}>
-                <Text style={{textAlign: "center", fontSize: 35, fontWeight: "200", padding: 5,color: "#fff"}}>Score: {score}</Text>
-            </View>
+            <HeadRoom setColumns={setColumns} setRows={setRows} rows={rows} />
 
-            <LevelSlider setColumns={setColumns} setRows={setRows} />
+            <View style={{borderColor: 'lightgrey', borderRadius: 5, borderWidth: 1, margin: 3}}>
+                <Text style={{textAlign: "center", fontSize: 25, fontWeight: "200", padding: 5,color: "#fff"}}>Score: {score}</Text>
+            </View>
+            
 
             <FlatList
                 data={images}
@@ -134,6 +134,7 @@ export default function FlippingCards() {
             }
 
             {!puzzleStarted && <Button
+                buttonStyle={{width: 80, alignSelf: "center", marginBottom: 50}}
                 title="GO"
                 disabled={buttonDisabled}
                 onPress={() => puzzleStarted ? "" : startPuzzle()}
@@ -143,7 +144,7 @@ export default function FlippingCards() {
                 <View style={{ flex: 0.6, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', marginTop: Constants.statusBarHeight }}>
                     {score === rows*columns * 10 &&
                         <>
-                        <Text>WooooHooooo.. MAXIMUM SCORE !!!!!</Text>
+                        <Text>woohooo HIGH SCORE !!!!!</Text>
                         <Image resizeMode="contain"
                              source={constant.RandomElementFromArray(constant.winnerGIFs)}
                              style={{width: imageInModal, height: imageInModal}}
@@ -156,6 +157,6 @@ export default function FlippingCards() {
 
             </ImageBackground>
 
-        </SafeAreaView>
+
     )
 }

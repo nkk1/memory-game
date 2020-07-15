@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, TouchableHighlight, Image, Dimensions, View, Button} from 'react-native';
+import {TouchableOpacity, TouchableHighlight, Image, Dimensions, View} from 'react-native';
 import * as constant from "./constants";
 import Modal from 'react-native-modal';
+import {Button} from 'react-native-elements';
 
 
 export default function PuzzleCard({card, countScore, gameOver, columns}) {
