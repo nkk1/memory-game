@@ -2,20 +2,20 @@
 import React, { useState } from 'react';
 import {Header, Icon} from 'react-native-elements';
 import LevelSlider from './slider';
-import { Slider, View } from 'react-native';
+import { View } from 'react-native';
 import Modal from 'react-native-modal';
 
 export default function HeadRoom(props) {
     const [levelModalVisible, setLevelModalVisible] = useState(false);
-    const Level = () => (<Icon name="settings" color='#fff' onPress={() => setLevelModalVisible(true)} />)
 
+    const Level = () => (<Icon name="settings" color='#fff' onPress={() => setLevelModalVisible(true)} />)
+    
     return (
         <>
             <Header
                 placement="center"
-                leftComponent={<Level />}
-                centerComponent={{ text: 'Memory', style: { color: '#fff' } }}
-                rightComponent={<Info />}
+                rightComponent={<Level />}
+                centerComponent={{ text: 'memory game', style: { color: '#fff' } }}                
             />
 
             <Modal isVisible={levelModalVisible} onBackdropPress={() => setLevelModalVisible(false)} >

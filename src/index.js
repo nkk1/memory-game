@@ -18,6 +18,10 @@ import Constants from "expo-constants";
 
 const imageInModal = Dimensions.get('window').width/ 1.5 ;
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
+
 export default function FlippingCards() {
     
     const [columns, setColumns] = useState(constant.START_LEVEL);
@@ -31,6 +35,7 @@ export default function FlippingCards() {
     const [randomPuzzles, setRandomPuzzles] = useState(constant.GetRandomItemsFromArray(images, images.length));
     const [gameOver, setGameOver] = useState(false);
     const [bgImage, setBGImage] = useState({uri: constant.RandomElementFromArray(constant.bgImages)});
+    const [infoModalVisible, setInfoModalVisible] = useState(false);    
 
     const [buttonDisabled, setButtonDisabled]  = useState(true);
 
@@ -69,6 +74,10 @@ export default function FlippingCards() {
     useEffect(function () {
         setRandomPuzzles(constant.GetRandomItemsFromArray(images, images.length));
     }, [JSON.stringify(images.map(img => img.id))]);
+
+    useEffect(() =>{
+        setInfoModalVisible(true);
+    },[])
 
     function countScore(clickedCard) {
         if(!puzzleStarted){
@@ -127,7 +136,7 @@ export default function FlippingCards() {
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <Image
                     resizeMode="contain"
-                    style={{width: '50%', height: '300%', alignSelf: "center", marginBottom: 150}}
+                    style={{width: '50%', height: '130%', alignSelf: "center", marginBottom: 150}}
                     source={puzzle.name}
                 />
             </View>
@@ -154,6 +163,18 @@ export default function FlippingCards() {
                     <Text style={{fontSize: 30}}>SCORE: {score}</Text>                    
                 </View>
             </Modal>
+
+            <Modal isVisible={infoModalVisible} onBackdropPress={() => setInfoModalVisible(false)}>
+                <View style={{padding: 15, backgroundColor: '#fff', alignSelf: "center", height: screenHeight/2}}>
+                    <Text style={{textAlign: "center", fontSize: 20}}>Build stories to remember the pics</Text>
+                    <Image source={require('../assets/eg.png')} resizeMode="contain" style={{marginTop: 20, marginBottom: 20, width: screenWidth, height: 160, alignSelf: "center"}} />
+                    <View style={{left: 50, marginBottom: 20}}>
+                    <Text style={{textAlign: "left"}}> • Grandma saved Giraffe from Lion</Text>
+                    <Text style={{textAlign: "left"}}> • Gradma cooked spicyfood for Elsa </Text> 
+                    <Text style={{textAlign: "left"}}> • It made her mouth so hot as sun</Text>
+                    </View>                    
+                </View>
+            </Modal>            
 
             </ImageBackground>
 

@@ -65,7 +65,7 @@ export default function PuzzleCard({card, countScore, gameOver, columns}) {
                                style={{width: imageInModal, height: imageInModal}}
                         />
                     </TouchableHighlight>
-                    <Button title="Next" onPress={() => backDrop()} style={{width: 50}}/>
+                    <Button title="Next" onPress={() => backDrop()} style={{width: 65}}/>
                 </View>
             </Modal>
             }
